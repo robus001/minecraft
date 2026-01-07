@@ -24,7 +24,7 @@
 
     <div id="admin-panel" style="display:none;">
       <h2>Produse existente</h2>
-      <div id="admin-products"></div>
+      <div id="admin-products" class="products-grid"></div>
 
       <h2>Adaugă produs nou</h2>
       <form id="add-product-form">
@@ -37,10 +37,8 @@
   </main>
 
   <script>
-    // Setează aici contul admin (poți schimba)
     const ADMIN_EMAIL = "admin@server.com";
     const ADMIN_PASSWORD = "parolamea123";
-
     let products = [];
 
     const loginForm = document.getElementById('login-form');
@@ -75,7 +73,7 @@
           <div class="product-card">
             <h3>${p.name}</h3>
             <p>${p.description}</p>
-            <p><strong>Preț:</strong> $${p.price}</p>
+            <p class="price">$${p.price}</p>
             <button onclick="deleteProduct(${index})">Șterge</button>
           </div>
         `;
@@ -89,14 +87,14 @@
       const description = document.getElementById('description').value;
 
       products.push({id: products.length + 1, name, price, description});
-      alert("Produs adăugat! (Demo: modificarea nu se salvează permanent pe GitHub Pages)");
+      alert("Produs adăugat! (Demo, modificarea nu se salvează permanent)");
       renderProducts();
       e.target.reset();
     });
 
     function deleteProduct(index) {
       products.splice(index, 1);
-      alert("Produs șters! (Demo: modificarea nu se salvează permanent pe GitHub Pages)");
+      alert("Produs șters! (Demo, modificarea nu se salvează permanent)");
       renderProducts();
     }
   </script>
