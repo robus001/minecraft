@@ -12,8 +12,12 @@
   </header>
 
   <main>
-    <div id="products" class="products-container"></div>
+    <div id="products" class="products-grid"></div>
   </main>
+
+  <footer>
+    <p>© 2026 Magazin Minecraft. Toate drepturile rezervate.</p>
+  </footer>
 
   <script>
     async function loadProducts() {
@@ -24,9 +28,12 @@
       products.forEach(p => {
         container.innerHTML += `
           <div class="product-card">
+            <div class="product-image">
+              <img src="https://via.placeholder.com/200x150.png?text=${encodeURIComponent(p.name)}" alt="${p.name}">
+            </div>
             <h2>${p.name}</h2>
             <p>${p.description}</p>
-            <p><strong>Preț:</strong> $${p.price}</p>
+            <p class="price">$${p.price}</p>
             <button onclick="buyProduct(${p.id})">Cumpără</button>
           </div>
         `;
