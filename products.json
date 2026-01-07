@@ -16,5 +16,11 @@
     "name": "Epic Sword",
     "price": 8,
     "description": "Sabie puternică, damage mare și durabilitate."
+  },
+  {
+    "id": 4,
+    "name": "Ultimate Armor",
+    "price": 15,
+    "description": "Armură completă cu protecții maxime."
   }
 ]
