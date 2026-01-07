@@ -3,24 +3,28 @@
     "id": 1,
     "name": "VIP Rank",
     "price": 10,
-    "description": "Acces la rank VIP, comenzi exclusive și perks."
+    "description": "Acces la rank VIP, comenzi exclusive și perks.",
+    "image": "https://via.placeholder.com/300x200/ff4d4d/ffffff?text=VIP+Rank"
   },
   {
     "id": 2,
     "name": "Starter Pack",
     "price": 5,
-    "description": "Iteme și bani pentru începutul aventurii."
+    "description": "Iteme și bani pentru începutul aventurii.",
+    "image": "https://via.placeholder.com/300x200/ff6666/ffffff?text=Starter+Pack"
   },
   {
     "id": 3,
     "name": "Epic Sword",
     "price": 8,
-    "description": "Sabie puternică, damage mare și durabilitate."
+    "description": "Sabie puternică, damage mare și durabilitate.",
+    "image": "https://via.placeholder.com/300x200/ff3333/ffffff?text=Epic+Sword"
   },
   {
     "id": 4,
     "name": "Ultimate Armor",
     "price": 15,
-    "description": "Armură completă cu protecții maxime."
+    "description": "Armură completă cu protecții maxime.",
+    "image": "https://via.placeholder.com/300x200/cc0000/ffffff?text=Ultimate+Armor"
   }
 ]
