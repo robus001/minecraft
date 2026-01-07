@@ -31,6 +31,7 @@
         <input type="text" id="name" placeholder="Nume produs" required>
         <input type="number" id="price" placeholder="Preț" required>
         <input type="text" id="description" placeholder="Descriere" required>
+        <input type="text" id="image" placeholder="Link imagine" required>
         <button type="submit">Adaugă produs</button>
       </form>
     </div>
@@ -71,6 +72,7 @@
       products.forEach((p, index) => {
         container.innerHTML += `
           <div class="product-card">
+            <img src="${p.image}" alt="${p.name}">
             <h3>${p.name}</h3>
             <p>${p.description}</p>
             <p class="price">$${p.price}</p>
@@ -85,8 +87,9 @@
       const name = document.getElementById('name').value;
       const price = parseInt(document.getElementById('price').value);
       const description = document.getElementById('description').value;
+      const image = document.getElementById('image').value;
 
-      products.push({id: products.length + 1, name, price, description});
+      products.push({id: products.length + 1, name, price, description, image});
       alert("Produs adăugat! (Demo, modificarea nu se salvează permanent)");
       renderProducts();
       e.target.reset();
