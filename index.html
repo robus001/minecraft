@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magazin Minecraft</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Magazin Minecraft</h1>
+    <a href="admin.html" class="admin-link">Admin</a>
+  </header>
+
+  <main>
+    <div id="products" class="products-container"></div>
+  </main>
+
+  <script>
+    async function loadProducts() {
+      const res = await fetch('products.json');
+      const products = await res.json();
+      const container = document.getElementById('products');
+      container.innerHTML = '';
+      products.forEach(p => {
+        container.innerHTML += `
+          <div class="product-card">
+            <h2>${p.name}</h2>
+            <p>${p.description}</p>
+            <p><strong>Preț:</strong> $${p.price}</p>
+            <button onclick="buyProduct(${p.id})">Cumpără</button>
+          </div>
+        `;
+      });
+    }
+
+    function buyProduct(id) {
+      alert(`Produsul cu ID ${id} a fost selectat. (Demo fără plată reală)`);
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>

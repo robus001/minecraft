@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Magazin Minecraft</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Magazin</h1>
+    <a href="index.html" class="admin-link">Vezi magazin</a>
+  </header>
+
+  <main>
+    <h2>Produse existente</h2>
+    <div id="admin-products"></div>
+
+    <h2>Adaugă produs nou</h2>
+    <form id="add-product-form">
+      <input type="text" id="name" placeholder="Nume produs" required>
+      <input type="number" id="price" placeholder="Preț" required>
+      <input type="text" id="description" placeholder="Descriere" required>
+      <button type="submit">Adaugă produs</button>
+    </form>
+  </main>
+
+  <script>
+    let products = [];
+
+    async function loadProducts() {
+      const res = await fetch('products.json');
+      products = await res.json();
+      const container = document.getElementById('admin-products');
+      container.innerHTML = '';
+      products.forEach((p, index) => {
+        container.innerHTML += `
+          <div class="product-card">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <p><strong>Preț:</strong> $${p.price}</p>
+            <button onclick="deleteProduct(${index})">Șterge</button>
+          </div>
+        `;
+      });
+    }
+
+    function deleteProduct(index) {
+      products.splice(index, 1);
+      alert("Produs șters! (Demo: modificarea nu se salvează permanent pe GitHub Pages)");
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const container = document.getElementById('admin-products');
+      container.innerHTML = '';
+      products.forEach((p, index) => {
+        container.innerHTML += `
+          <div class="product-card">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <p><strong>Preț:</strong> $${p.price}</p>
+            <button onclick="deleteProduct(${index})">Șterge</button>
+          </div>
+        `;
+      });
+    }
+
+    document.getElementById('add-product-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const price = parseInt(document.getElementById('price').value);
+      const description = document.getElementById('description').value;
+
+      products.push({id: products.length + 1, name, price, description});
+      alert("Produs adăugat! (Demo: modificarea nu se salvează permanent pe GitHub Pages)");
+      renderProducts();
+      e.target.reset();
+    });
+
+    loadProducts();
+  </script>
+</body>
+</html>
