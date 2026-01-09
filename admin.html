@@ -2,104 +2,39 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Magazin Minecraft</title>
+  <title>Admin Panel</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Admin Magazin</h1>
-    <a href="index.html" class="admin-link">Vezi magazin</a>
-  </header>
 
-  <main>
-    <div id="login-container">
-      <h2>Conectare Admin</h2>
-      <form id="login-form">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Parolă" required>
-        <button type="submit">Conectează-te</button>
-      </form>
-    </div>
+<div class="admin-login" id="login">
+  <h2>Admin Login</h2>
+  <input id="email" placeholder="Email">
+  <input id="pass" type="password" placeholder="Parolă">
+  <button onclick="login()">Login</button>
+</div>
 
-    <div id="admin-panel" style="display:none;">
-      <h2>Produse existente</h2>
-      <div id="admin-products" class="products-grid"></div>
+<div class="admin-panel" id="panel" style="display:none;">
+  <h2>Admin Panel</h2>
+  <p>Produsele se editează din products.json</p>
+</div>
 
-      <h2>Adaugă produs nou</h2>
-      <form id="add-product-form">
-        <input type="text" id="name" placeholder="Nume produs" required>
-        <input type="number" id="price" placeholder="Preț" required>
-        <input type="text" id="description" placeholder="Descriere" required>
-        <input type="text" id="image" placeholder="Link imagine" required>
-        <button type="submit">Adaugă produs</button>
-      </form>
-    </div>
-  </main>
+<script>
+const ADMIN_EMAIL = "admin@site.ro";
+const ADMIN_PASS = "parola123";
 
-  <script>
-    const ADMIN_EMAIL = "admin@server.com";
-    const ADMIN_PASSWORD = "parolamea123";
-    let products = [];
+function login(){
+  if(
+    email.value === ADMIN_EMAIL &&
+    pass.value === ADMIN_PASS
+  ){
+    login.style.display = "none";
+    panel.style.display = "block";
+  } else {
+    alert("Date greșite");
+  }
+}
+</script>
 
-    const loginForm = document.getElementById('login-form');
-    const loginContainer = document.getElementById('login-container');
-    const adminPanel = document.getElementById('admin-panel');
-
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      if(email === ADMIN_EMAIL && password === ADMIN_PASSWORD){
-        loginContainer.style.display = 'none';
-        adminPanel.style.display = 'block';
-        loadProducts();
-      } else {
-        alert("Email sau parolă greșită!");
-      }
-    });
-
-    async function loadProducts() {
-      const res = await fetch('products.json');
-      products = await res.json();
-      renderProducts();
-    }
-
-    function renderProducts() {
-      const container = document.getElementById('admin-products');
-      container.innerHTML = '';
-      products.forEach((p, index) => {
-        container.innerHTML += `
-          <div class="product-card">
-            <img src="${p.image}" alt="${p.name}">
-            <h3>${p.name}</h3>
-            <p>${p.description}</p>
-            <p class="price">$${p.price}</p>
-            <button onclick="deleteProduct(${index})">Șterge</button>
-          </div>
-        `;
-      });
-    }
-
-    document.getElementById('add-product-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const price = parseInt(document.getElementById('price').value);
-      const description = document.getElementById('description').value;
-      const image = document.getElementById('image').value;
-
-      products.push({id: products.length + 1, name, price, description, image});
-      alert("Produs adăugat! (Demo, modificarea nu se salvează permanent)");
-      renderProducts();
-      e.target.reset();
-    });
-
-    function deleteProduct(index) {
-      products.splice(index, 1);
-      alert("Produs șters! (Demo, modificarea nu se salvează permanent)");
-      renderProducts();
-    }
-  </script>
 </body>
 </html>
