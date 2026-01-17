@@ -9,30 +9,96 @@
 
 <div class="admin-login" id="loginBox">
   <h2>Admin Login</h2>
-  <input id="email" type="email" placeholder="Email">
+  <input id="email" placeholder="Email">
   <input id="pass" type="password" placeholder="Parolă">
   <button onclick="doLogin()">Login</button>
 </div>
 
 <div class="admin-panel" id="panel" style="display:none;">
   <h2>Admin Panel</h2>
-  <p>Autentificat cu succes ✅</p>
+
+  <h3>Produse</h3>
+  <div id="productList"></div>
+
+  <h3>Adaugă produs</h3>
+  <input id="name" placeholder="Nume">
+  <input id="price" type="number" placeholder="Preț">
+  <input id="desc" placeholder="Descriere">
+  <input id="img" placeholder="Link imagine">
+  <button onclick="addProduct()">Adaugă</button>
 </div>
 
 <script>
 const ADMIN_EMAIL = "admin@server.ro";
 const ADMIN_PASS = "123456";
 
-function doLogin() {
-  const email = document.getElementById("email").value;
-  const pass = document.getElementById("pass").value;
+let products = [];
 
-  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("panel").style.display = "block";
+// LOGIN
+function doLogin() {
+  if (
+    email.value === ADMIN_EMAIL &&
+    pass.value === ADMIN_PASS
+  ) {
+    loginBox.style.display = "none";
+    panel.style.display = "block";
+    loadProducts();
   } else {
-    alert("Email sau parolă greșită!");
+    alert("Date greșite");
   }
+}
+
+// LOAD PRODUCTS
+async function loadProducts() {
+  const saved = localStorage.getItem("products");
+  if (saved) {
+    products = JSON.parse(saved);
+  } else {
+    const res = await fetch("products.json");
+    products = await res.json();
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+  render();
+}
+
+// RENDER
+function render() {
+  productList.innerHTML = "";
+  products.forEach((p, i) => {
+    productList.innerHTML += `
+      <div class="card">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <span>${p.price} €</span>
+        <button onclick="remove(${i})">Șterge</button>
+      </div>
+    `;
+  });
+}
+
+// ADD
+function addProduct() {
+  products.push({
+    id: Date.now(),
+    name: name.value,
+    price: price.value,
+    description: desc.value,
+    image: img.value
+  });
+  save();
+}
+
+// DELETE
+function remove(i) {
+  products.splice(i, 1);
+  save();
+}
+
+// SAVE
+function save() {
+  localStorage.setItem("products", JSON.stringify(products));
+  render();
 }
 </script>
 
