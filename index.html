@@ -11,42 +11,26 @@
   <h1>MAGAZIN MINECRAFT</h1>
 </header>
 
-<div class="cards" id="products"></div>
+<div class="container">
+  <div class="cards" id="products"></div>
+</div>
 
+<script src="data.js"></script>
 <script>
-let products = [];
+const products = JSON.parse(localStorage.getItem("products"));
+const box = document.getElementById("products");
 
-const saved = localStorage.getItem("products");
-if (saved) {
-  products = JSON.parse(saved);
-} else {
-  fetch("products.json")
-    .then(r => r.json())
-    .then(d => {
-      products = d;
-      localStorage.setItem("products", JSON.stringify(products));
-      render();
-    });
-}
-
-function render() {
-  productsDiv.innerHTML = "";
-  products.forEach(p => {
-    productsDiv.innerHTML += `
-      <div class="card">
-        <img src="${p.image}">
-        <h3>${p.name}</h3>
-        <p>${p.description}</p>
-        <b>${p.price} €</b>
-        <br><br>
-        <button onclick="alert('Demo')">Cumpără</button>
-      </div>
-    `;
-  });
-}
-
-const productsDiv = document.getElementById("products");
-render();
+products.forEach(p => {
+  box.innerHTML += `
+    <div class="card">
+      <img src="${p.image}">
+      <h3>${p.name}</h3>
+      <p>${p.description}</p>
+      <b>${p.price} €</b><br><br>
+      <button onclick="alert('Demo')">Cumpără</button>
+    </div>
+  `;
+});
 </script>
 
 </body>
