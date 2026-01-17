@@ -1,117 +1,46 @@
-* {
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
-}
-
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #1f1f1f, #0a0a0a);
-  color: #fff;
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: white;
 }
 
-/* HEADER */
-.topbar {
-  background: linear-gradient(90deg, #7f1d1d, #dc2626);
+header {
+  background: #b00000;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 0 25px #dc2626;
 }
 
-/* TITLES */
-.section-title {
-  text-align: center;
-  margin: 40px 0;
-  font-size: 32px;
-  color: #ff4d4d;
-}
-
-/* GRID */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 40px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: auto;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 30px;
 }
 
-/* CARD */
 .card {
-  background: linear-gradient(180deg, #1a1a1a, #111);
-  border-radius: 20px;
-  padding: 25px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 15px;
   text-align: center;
-  box-shadow: 0 0 40px rgba(220,38,38,.25);
-  transition: transform .4s, box-shadow .4s;
-}
-
-.card:hover {
-  transform: translateY(-12px) scale(1.03);
-  box-shadow: 0 0 60px rgba(220,38,38,.8);
 }
 
 .card img {
-  width: 160px;
-  margin-bottom: 20px;
-}
-
-.card h3 {
-  font-size: 26px;
-  color: #ff5555;
-}
-
-.card span {
-  display: block;
-  font-size: 22px;
-  margin: 15px 0;
-  color: #ff7777;
-}
-
-.card button {
-  background: linear-gradient(90deg, #dc2626, #ff4444);
-  border: none;
-  padding: 14px;
   width: 100%;
+  border-radius: 8px;
+}
+
+button {
+  background: #b00000;
+  border: none;
   color: white;
-  font-size: 16px;
-  border-radius: 12px;
+  padding: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.card button:hover {
-  box-shadow: 0 0 20px #ff4444;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  opacity: 0.6;
-}
-
-/* ADMIN */
-.admin-login, .admin-panel {
-  max-width: 400px;
-  margin: 100px auto;
-  background: #111;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 30px red;
-}
-
-.admin-login input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  background: #222;
-  border: 1px solid red;
-  color: white;
-}
-
-.admin-login button {
-  width: 100%;
-  padding: 10px;
-  background: red;
-  border: none;
-  color: white;
+input {
+  padding: 8px;
+  margin: 5px;
+  width: 200px;
 }
