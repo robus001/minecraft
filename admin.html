@@ -16,18 +16,18 @@
 
 <div class="admin-panel" id="panel" style="display:none;">
   <h2>Admin Panel</h2>
-  <p>Produsele se editează din products.json</p>
+  <p>Demo mode (GitHub Pages)</p>
 </div>
 
 <script>
-const ADMIN_EMAIL = "admin@site.ro";
-const ADMIN_PASS = "parola123";
+const ADMIN_EMAIL = "admin@server.ro";
+const ADMIN_PASS = "123456";
 
-function login(){
-  if(
+function login() {
+  if (
     email.value === ADMIN_EMAIL &&
     pass.value === ADMIN_PASS
-  ){
+  ) {
     login.style.display = "none";
     panel.style.display = "block";
   } else {
