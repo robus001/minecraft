@@ -1,1 +1,37 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Owner Panel</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<h1>Owner Panel</h1>
+
+<h2>Loguri Admini</h2>
+<div id="logs"></div>
+
+<script src="../users.js"></script>
+<script src="../auth.js"></script>
+
+<script>
+const user = getUser();
+if (!user || user.role !== "owner") {
+  alert("Acces interzis");
+  window.location.href = "../";
+}
+
+const logs = JSON.parse(localStorage.getItem("logs") || "[]");
+logs.forEach(l => {
+  logsDiv.innerHTML += `
+    <p><b>${l.admin}</b>: ${l.action} (${l.date})</p>
+  `;
+});
+
+const logsDiv = document.getElementById("logs");
+</script>
+
+</body>
+</html>
 
