@@ -6,23 +6,30 @@ body {
 }
 
 header {
-  background: #b00000;
+  background: linear-gradient(90deg, #b00000, #ff2b2b);
   padding: 20px;
   text-align: center;
+}
+
+h1, h2, h3 {
+  margin: 10px 0;
+}
+
+.container {
+  padding: 30px;
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  padding: 30px;
 }
 
 .card {
   background: #1a1a1a;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 15px;
-  text-align: center;
+  box-shadow: 0 0 15px rgba(255,0,0,0.2);
 }
 
 .card img {
@@ -35,12 +42,14 @@ button {
   border: none;
   color: white;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-input {
+input, textarea {
   padding: 8px;
-  margin: 5px;
-  width: 200px;
+  margin: 5px 0;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
 }
