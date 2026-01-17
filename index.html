@@ -22,23 +22,45 @@
 </footer>
 
 <script>
-async function loadProducts() {
-  const res = await fetch("products.json");
-  const data = await res.json();
-  const container = document.getElementById("products");
+let products = [];
 
-  data.forEach(p => {
+async function loadProducts() {
+  // 1️⃣ încearcă din localStorage (modificate de admin)
+  const saved = localStorage.getItem("products");
+
+  if (saved) {
+    products = JSON.parse(saved);
+  } else {
+    // 2️⃣ fallback din products.json
+    const res = await fetch("products.json");
+    products = await res.json();
+    localStorage.setItem("products", JSON.stringify(products));
+  }
+
+  renderProducts();
+}
+
+function renderProducts() {
+  const container = document.getElementById("products");
+  container.innerHTML = "";
+
+  products.forEach(p => {
     container.innerHTML += `
       <div class="card">
-        <img src="${p.image}">
+        <img src="${p.image}" alt="${p.name}">
         <h3>${p.name}</h3>
         <p>${p.description}</p>
         <span>${p.price} €</span>
-        <button onclick="alert('Demo – fără plată reală')">Add to Cart</button>
+        <button onclick="buy('${p.name}')">Add to Cart</button>
       </div>
     `;
   });
 }
+
+function buy(name) {
+  alert("Ai selectat: " + name + " (demo)");
+}
+
 loadProducts();
 </script>
 
