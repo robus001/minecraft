@@ -1,23 +1,15 @@
 [
   {
-    "id": 1,
     "name": "VIP",
-    "price": 10,
-    "description": "Acces la comenzi speciale, kit VIP și prefix.",
-    "image": "https://mc-heads.net/body/Notch/300"
+    "price": 5,
+    "description": "Acces VIP",
+    "image": "https://i.imgur.com/8Km9tLL.png"
   },
   {
-    "id": 2,
     "name": "MVP",
-    "price": 20,
-    "description": "Rank premium cu perks exclusive și avantaje mari.",
-    "image": "https://mc-heads.net/body/Steve/300"
-  },
-  {
-    "id": 3,
-    "name": "LEGEND",
-    "price": 35,
-    "description": "Cel mai puternic rank de pe server.",
-    "image": "https://mc-heads.net/body/Alex/300"
+    "price": 10,
+    "description": "Acces MVP",
+    "image": "https://i.imgur.com/8Km9tLL.png"
   }
 ]
+
