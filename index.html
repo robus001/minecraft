@@ -3,175 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store | Replica Tebex Professional</title>
+    <title>Magazin Server | Professional Replica</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
-        .sidebar-link.active { background-color: #3b82f6; color: white; }
-        .product-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f9fafb; }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+        .nav-link.active { color: #2563eb; border-bottom: 2px solid #2563eb; }
     </style>
 </head>
-<body class="text-gray-800">
+<body>
 
-    <div class="bg-[#1a202c] text-white py-2 px-8 flex justify-between items-center text-sm">
-        <div><i class="fa-solid fa-server mr-2 text-green-400"></i> Server Status: <span class="font-bold text-green-400">Online</span></div>
-        <div class="flex gap-4">
-            <a href="#" class="hover:text-blue-400">Discord</a>
-            <a href="#" class="hover:text-blue-400">Regulament</a>
+    <div id="auth-modal" class="fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 text-center">
+            <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-user-tag text-3xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Introdu numele din joc</h2>
+            <p class="text-gray-500 mb-6">Avem nevoie de numele tău pentru a-ți livra pachetele cumpărate.</p>
+            <input type="text" id="username-input" placeholder="Ex: PlayerName" class="w-full px-4 py-4 border-2 border-gray-100 rounded-xl mb-4 focus:border-blue-500 outline-none transition">
+            <button onclick="login()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-200">CONTINUĂ</button>
         </div>
     </div>
 
-    <header class="bg-white border-b py-6 px-8 flex justify-between items-center shadow-sm">
-        <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white text-2xl font-bold">S</div>
-            <div>
-                <h1 class="text-xl font-bold leading-none">SERVER NAME</h1>
-                <p class="text-xs text-gray-500 uppercase tracking-widest">Official Store</p>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-6">
-            <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-blue-600 transition">
-                <i class="fa-solid fa-cart-shopping text-2xl"></i>
-                <span id="cart-count" class="absolute top-0 right-0 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
-            </button>
-            <div class="h-8 w-[1px] bg-gray-200"></div>
-            <button class="flex items-center gap-2 font-semibold text-gray-700 hover:text-blue-600">
-                <i class="fa-solid fa-user-circle text-xl"></i> Autentificare
-            </button>
-        </div>
-    </header>
-
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 p-8">
-        
-        <aside class="w-full md:w-64 space-y-6">
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
-                <div class="bg-gray-50 px-4 py-3 border-b font-bold text-xs text-gray-500 uppercase">Categorii</div>
-                <nav class="p-2 space-y-1">
-                    <a href="#" class="sidebar-link active flex items-center gap-3 p-3 rounded-lg font-medium transition">
-                        <i class="fa-solid fa-star"></i> Rank-uri VIP
-                    </a>
-                    <a href="#" class="sidebar-link flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition">
-                        <i class="fa-solid fa-box-open"></i> Pachete Item-e
-                    </a>
-                    <a href="#" class="sidebar-link flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition">
-                        <i class="fa-solid fa-coins"></i> Monede Magice
-                    </a>
-                    <a href="#" class="sidebar-link flex items-center gap-3 p-3 text-gray-600 hover:bg-gray-100 rounded-lg font-medium transition">
-                        <i class="fa-solid fa-gavel"></i> Unban-uri
-                    </a>
-                </nav>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm p-4 border-l-4 border-blue-500">
-                <h4 class="text-xs font-bold text-gray-400 uppercase mb-3">Ultimul Donator</h4>
-                <div class="flex items-center gap-3">
-                    <img src="https://minotar.net/avatar/Steve/32" class="rounded">
-                    <div>
-                        <p class="text-sm font-bold">PlayerX</p>
-                        <p class="text-xs text-gray-500">25.00 EUR</p>
-                    </div>
+    <nav class="bg-white border-b sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <div class="text-2xl font-black text-slate-800 tracking-tighter cursor-pointer" onclick="showPage('home')">ULTRA<span class="text-blue-600">STORE</span></div>
+                <div class="hidden md:flex gap-6">
+                    <button onclick="showPage('home')" class="nav-link font-semibold text-gray-500 hover:text-blue-600 transition">Acasă</button>
+                    <button onclick="showPage('shop')" class="nav-link font-semibold text-gray-500 hover:text-blue-600 transition">Magazin</button>
+                    <button onclick="showPage('checkout')" class="nav-link font-semibold text-gray-500 hover:text-blue-600 transition">Checkout</button>
                 </div>
             </div>
-        </aside>
-
-        <main class="flex-1">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">Rank-uri VIP</h2>
-                <select class="bg-white border rounded-lg px-3 py-2 text-sm outline-none">
-                    <option>Valută: EUR</option>
-                    <option>Valută: RON</option>
-                </select>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="product-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="h-48 bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white relative">
-                        <i class="fa-solid fa-crown text-6xl opacity-20 absolute"></i>
-                        <span class="z-10 font-black text-2xl tracking-tighter italic">RANK DIAMOND</span>
-                    </div>
-                    <div class="p-5 text-center">
-                        <p class="text-gray-500 text-sm mb-4">Acces permanent, Kit Diamond, și Prefix Colorat în chat.</p>
-                        <button onclick="addToCart('Rank Diamond', 29.99)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-blue-200">
-                            29.99 EUR
-                        </button>
-                    </div>
+            <div class="flex items-center gap-5">
+                <div id="user-badge" class="hidden md:flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full text-sm font-bold">
+                    <img id="user-avatar" src="" class="w-6 h-6 rounded">
+                    <span id="display-name">Nume</span>
                 </div>
-
-                <div class="product-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="h-48 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white relative">
-                        <i class="fa-solid fa-bolt text-6xl opacity-20 absolute"></i>
-                        <span class="z-10 font-black text-2xl tracking-tighter italic">RANK GOLD</span>
-                    </div>
-                    <div class="p-5 text-center">
-                        <p class="text-gray-500 text-sm mb-4">Acces la /fly, Kit Gold lunar și 500 de monede bonus.</p>
-                        <button onclick="addToCart('Rank Gold', 14.99)" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-orange-100">
-                            14.99 EUR
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-        <div class="bg-white w-full max-w-md rounded-2xl overflow-hidden shadow-2xl mx-4">
-            <div class="p-6 border-b flex justify-between items-center">
-                <h3 class="text-xl font-bold">Coșul tău</h3>
-                <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-            </div>
-            <div id="cart-items" class="p-6 max-h-96 overflow-y-auto space-y-4">
-                <p class="text-gray-500 text-center">Coșul este gol.</p>
-            </div>
-            <div class="p-6 bg-gray-50 border-t">
-                <div class="flex justify-between font-bold text-lg mb-4">
-                    <span>Total:</span>
-                    <span id="cart-total">0.00 EUR</span>
-                </div>
-                <button class="w-full bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 transition">
-                    CONTINUĂ SPRE PLATĂ
+                <button onclick="showPage('checkout')" class="relative text-gray-700">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">0</span>
                 </button>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <section id="home-page" class="page-section active">
+        <div class="relative bg-slate-900 py-32 text-center text-white overflow-hidden">
+            <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            <div class="relative z-10 max-w-4xl mx-auto px-6">
+                <h1 class="text-5xl md:text-7xl font-black mb-6">Upgrade your gaming experience.</h1>
+                <p class="text-xl text-gray-400 mb-10">Cea mai sigură și rapidă metodă de a obține avantaje pe serverul nostru.</p>
+                <button onclick="showPage('shop')" class="bg-blue-600 px-10 py-5 rounded-2xl font-bold text-lg hover:scale-105 transition shadow-xl shadow-blue-500/20">VEZI CATEGORIILE</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop-page" class="page-section py-12 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-10">
+            <div class="lg:col-span-1 space-y-4">
+                <h3 class="font-bold text-gray-400 uppercase text-xs tracking-widest ml-2">Categorii</h3>
+                <div class="bg-white border rounded-2xl p-2 shadow-sm">
+                    <button class="w-full text-left p-4 rounded-xl bg-blue-50 text-blue-600 font-bold mb-1">Rank-uri VIP</button>
+                    <button class="w-full text-left p-4 rounded-xl text-gray-600 hover:bg-gray-50 transition">Unban-uri</button>
+                    <button class="w-full text-left p-4 rounded-xl text-gray-600 hover:bg-gray-50 transition">Pachete Case-uri</button>
+                </div>
+            </div>
+            <div class="lg:col-span-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <div class="bg-white border rounded-3xl overflow-hidden hover:shadow-xl transition-all group">
+                        <div class="h-44 bg-slate-100 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-gem text-6xl text-blue-200 group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="font-bold text-xl mb-1">Rank DIAMOND</h4>
+                            <p class="text-gray-400 text-sm mb-6">Acces full la comenzi, prefix special și kit lunar.</p>
+                            <button onclick="addToCart('Rank DIAMOND', 25.00)" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">25.00 EUR</button>
+                        </div>
+                    </div>
+                    <div class="bg-white border rounded-3xl overflow-hidden hover:shadow-xl transition-all group">
+                        <div class="h-44 bg-slate-100 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-fire text-6xl text-orange-200 group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="p-6">
+                            <h4 class="font-bold text-xl mb-1">Rank GOLD</h4>
+                            <p class="text-gray-400 text-sm mb-6">Zbor pe lobby, acces la culori chat și 3 kit-uri.</p>
+                            <button onclick="addToCart('Rank GOLD', 15.00)" class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-blue-600 transition">15.00 EUR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="checkout-page" class="page-section py-12 px-6">
+        <div class="max-w-4xl mx-auto bg-white border rounded-3xl shadow-sm overflow-hidden">
+            <div class="p-8 border-b bg-gray-50 flex justify-between items-center">
+                <h2 class="text-2xl font-extrabold">Finalizare Comandă</h2>
+                <span class="text-gray-400 font-medium" id="checkout-user">User: -</span>
+            </div>
+            <div class="p-8">
+                <div id="checkout-list" class="space-y-4 mb-8">
+                    <p class="text-center text-gray-400">Coșul tău este gol.</p>
+                </div>
+                
+                <div class="border-t pt-6">
+                    <h3 class="font-bold mb-4">Alege Metoda de Plată</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="border-2 border-blue-500 p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer bg-blue-50">
+                            <i class="fa-brands fa-paypal text-2xl text-blue-600"></i>
+                            <span class="text-xs font-bold">PayPal</span>
+                        </div>
+                        <div class="border-2 border-gray-100 p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:border-gray-200">
+                            <i class="fa-solid fa-credit-card text-2xl text-gray-600"></i>
+                            <span class="text-xs font-bold">Card</span>
+                        </div>
+                        <div class="border-2 border-gray-100 p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:border-gray-200">
+                            <i class="fa-brands fa-bitcoin text-2xl text-orange-500"></i>
+                            <span class="text-xs font-bold">Crypto</span>
+                        </div>
+                        <div class="border-2 border-gray-100 p-4 rounded-2xl flex flex-col items-center gap-2 cursor-pointer hover:border-gray-200">
+                            <i class="fa-solid fa-mobile-screen text-2xl text-green-600"></i>
+                            <span class="text-xs font-bold">SMS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex justify-between items-center bg-slate-900 text-white p-6 rounded-2xl">
+                    <div>
+                        <p class="text-gray-400 text-sm">Total de plată</p>
+                        <p id="total-price" class="text-3xl font-black">0.00 EUR</p>
+                    </div>
+                    <button class="bg-blue-600 px-8 py-4 rounded-xl font-bold hover:bg-blue-500 transition">PLĂTEȘTE ACUM</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <script>
         let cart = [];
-        
+        let currentUser = "";
+
+        // Sistem de Navigare intre pagini
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            // Activeaza link-ul curent (vizual)
+        }
+
+        // Login System
+        function login() {
+            const input = document.getElementById('username-input');
+            if(input.value.length < 3) return alert("Introdu un nume valid!");
+            
+            currentUser = input.value;
+            document.getElementById('auth-modal').style.display = 'none';
+            document.getElementById('user-badge').classList.remove('hidden');
+            document.getElementById('display-name').innerText = currentUser;
+            document.getElementById('checkout-user').innerText = "Cumpărător: " + currentUser;
+            document.getElementById('user-avatar').src = `https://minotar.net/avatar/${currentUser}/32`;
+        }
+
+        // Cart Logic
         function addToCart(name, price) {
-            cart.push({ name, price });
-            updateCartUI();
+            cart.push({name, price});
+            updateUI();
+            alert(name + " a fost adăugat în coș!");
         }
 
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            modal.classList.toggle('hidden');
-        }
-
-        function updateCartUI() {
-            const cartItems = document.getElementById('cart-items');
-            const cartCount = document.getElementById('cart-count');
-            const cartTotal = document.getElementById('cart-total');
+        function updateUI() {
+            // Update Cart Count
+            document.getElementById('cart-count').innerText = cart.length;
             
-            cartCount.innerText = cart.length;
+            // Update Checkout Page
+            const list = document.getElementById('checkout-list');
+            const totalDisplay = document.getElementById('total-price');
             
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p class="text-gray-500 text-center">Coșul este gol.</p>';
+            if(cart.length === 0) {
+                list.innerHTML = '<p class="text-center text-gray-400 py-10">Coșul tău este gol.</p>';
+                totalDisplay.innerText = "0.00 EUR";
             } else {
-                cartItems.innerHTML = cart.map((item, index) => `
-                    <div class="flex justify-between items-center bg-gray-100 p-3 rounded-lg">
-                        <span class="font-semibold">${item.name}</span>
-                        <span class="font-bold text-blue-600">${item.price} EUR</span>
+                list.innerHTML = cart.map((item, index) => `
+                    <div class="flex justify-between items-center bg-gray-50 p-4 rounded-xl border border-gray-100">
+                        <div>
+                            <p class="font-bold text-slate-800">${item.name}</p>
+                            <p class="text-xs text-blue-600 font-bold">Livrare Instantă</p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="font-black text-slate-900">${item.price.toFixed(2)} EUR</span>
+                            <button onclick="removeItem(${index})" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                        </div>
                     </div>
                 `).join('');
+                
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                totalDisplay.innerText = total.toFixed(2) + " EUR";
             }
+        }
 
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            cartTotal.innerText = total.toFixed(2) + ' EUR';
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateUI();
         }
     </script>
-
 </body>
 </html>
