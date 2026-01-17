@@ -18,4 +18,3 @@ const USERS = [
     password: "admin456"
   }
 ];
-
