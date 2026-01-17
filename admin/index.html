@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<h2>Admin Login</h2>
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Parolă">
+<button onclick="login(email.value, pass.value)">Login</button>
+
+<div id="panel" style="display:none;">
+  <h3>Produse</h3>
+  <div id="list"></div>
+
+  <input id="name" placeholder="Nume">
+  <input id="price" placeholder="Preț">
+  <input id="desc" placeholder="Descriere">
+  <input id="img" placeholder="Imagine URL">
+  <button onclick="add()">Adaugă</button>
+</div>
+
+<script src="../users.js"></script>
+<script src="../auth.js"></script>
+<script src="../logs.js"></script>
+
+<script>
+const user = getUser();
+if (user && user.role === "admin") panel.style.display = "block";
+
+let products = JSON.parse(localStorage.getItem("products") || "[]");
+
+function render() {
+  list.innerHTML = "";
+  products.forEach((p, i) => {
+    list.innerHTML += `
+      <div>${p.name} - ${p.price}€
+      <button onclick="del(${i})">X</button></div>
+    `;
+  });
+}
+
+function add() {
+  products.push({
+    name: name.value,
+    price: price.value,
+    description: desc.value,
+    image: img.value
+  });
+  localStorage.setItem("products", JSON.stringify(products));
+  addLog("A adăugat produs " + name.value);
+  render();
+}
+
+function del(i) {
+  addLog("A șters produs " + products[i].name);
+  products.splice(i, 1);
+  localStorage.setItem("products", JSON.stringify(products));
+  render();
+}
+
+render();
+</script>
+
+</body>
+</html>
 
