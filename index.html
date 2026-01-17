@@ -2,50 +2,44 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>Minecraft Store</title>
+  <title>Magazin Minecraft</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="top-bar">
-  <div class="logo">MINECRAFT STORE</div>
-  <div class="links">
-    <a href="#">Discord</a>
-    <a href="#">Support</a>
-  </div>
+<header class="topbar">
+  <h1>MAGAZIN MINECRAFT</h1>
 </header>
 
-<section class="hero">
-  <h1>Magazin Oficial</h1>
-  <p>Susține serverul și primește beneficii exclusive</p>
-</section>
-
-<main class="store">
-  <h2>Ranks</h2>
-  <div id="products" class="products"></div>
+<main class="shop">
+  <h2 class="section-title">RANKS</h2>
+  <div id="products" class="cards"></div>
 </main>
 
 <footer>
-  © 2026 Minecraft Store · Not affiliated with Mojang
+  © 2026 Server Minecraft • Not affiliated with Mojang
 </footer>
 
 <script>
-fetch("products.json")
-  .then(r => r.json())
-  .then(products => {
-    const container = document.getElementById("products");
-    products.forEach(p => {
-      container.innerHTML += `
-        <div class="card">
-          <img src="${p.image}">
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
-          <span>${p.price} €</span>
-          <button>Cumpără</button>
-        </div>
-      `;
-    });
+async function loadProducts() {
+  const res = await fetch("products.json");
+  const data = await res.json();
+  const container = document.getElementById("products");
+
+  data.forEach(p => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>${p.description}</p>
+        <span>${p.price} €</span>
+        <button onclick="alert('Demo – fără plată reală')">Add to Cart</button>
+      </div>
+    `;
   });
+}
+loadProducts();
 </script>
 
 </body>
