@@ -3,65 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <title>Magazin Minecraft</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="topbar">
+<header>
   <h1>MAGAZIN MINECRAFT</h1>
 </header>
 
-<main class="shop">
-  <h2 class="section-title">RANKS</h2>
-  <div id="products" class="cards"></div>
-</main>
-
-<footer>
-  © 2026 Server Minecraft • Not affiliated with Mojang
-</footer>
+<div class="cards" id="products"></div>
 
 <script>
 let products = [];
 
-async function loadProducts() {
-  // 1️⃣ încearcă din localStorage (modificate de admin)
-  const saved = localStorage.getItem("products");
-
-  if (saved) {
-    products = JSON.parse(saved);
-  } else {
-    // 2️⃣ fallback din products.json
-    const res = await fetch("products.json");
-    products = await res.json();
-    localStorage.setItem("products", JSON.stringify(products));
-  }
-
-  renderProducts();
+const saved = localStorage.getItem("products");
+if (saved) {
+  products = JSON.parse(saved);
+} else {
+  fetch("products.json")
+    .then(r => r.json())
+    .then(d => {
+      products = d;
+      localStorage.setItem("products", JSON.stringify(products));
+      render();
+    });
 }
 
-function renderProducts() {
-  const container = document.getElementById("products");
-  container.innerHTML = "";
-
+function render() {
+  productsDiv.innerHTML = "";
   products.forEach(p => {
-    container.innerHTML += `
+    productsDiv.innerHTML += `
       <div class="card">
-        <img src="${p.image}" alt="${p.name}">
+        <img src="${p.image}">
         <h3>${p.name}</h3>
         <p>${p.description}</p>
-        <span>${p.price} €</span>
-        <button onclick="buy('${p.name}')">Add to Cart</button>
+        <b>${p.price} €</b>
+        <br><br>
+        <button onclick="alert('Demo')">Cumpără</button>
       </div>
     `;
   });
 }
 
-function buy(name) {
-  alert("Ai selectat: " + name + " (demo)");
-}
-
-loadProducts();
+const productsDiv = document.getElementById("products");
+render();
 </script>
 
 </body>
