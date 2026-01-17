@@ -7,31 +7,31 @@
 </head>
 <body>
 
-<div class="admin-login" id="login">
+<div class="admin-login" id="loginBox">
   <h2>Admin Login</h2>
-  <input id="email" placeholder="Email">
+  <input id="email" type="email" placeholder="Email">
   <input id="pass" type="password" placeholder="Parolă">
-  <button onclick="login()">Login</button>
+  <button onclick="doLogin()">Login</button>
 </div>
 
 <div class="admin-panel" id="panel" style="display:none;">
   <h2>Admin Panel</h2>
-  <p>Demo mode (GitHub Pages)</p>
+  <p>Autentificat cu succes ✅</p>
 </div>
 
 <script>
 const ADMIN_EMAIL = "admin@server.ro";
 const ADMIN_PASS = "123456";
 
-function login() {
-  if (
-    email.value === ADMIN_EMAIL &&
-    pass.value === ADMIN_PASS
-  ) {
-    login.style.display = "none";
-    panel.style.display = "block";
+function doLogin() {
+  const email = document.getElementById("email").value;
+  const pass = document.getElementById("pass").value;
+
+  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("panel").style.display = "block";
   } else {
-    alert("Date greșite");
+    alert("Email sau parolă greșită!");
   }
 }
 </script>
